@@ -53,12 +53,15 @@ return {
 
         map("n", "-", ":Telescope file_browser<CR>")
 
-        map("n", "<leader>ff", builtin.find_files, opts) -- Lists files in your current working directory, respects .gitignore
-        map("n", "<leader>fx", builtin.treesitter, opts) -- Lists tree-sitter symbols
-		  map("n", "<leader>fe", builtin.buffers, opts)
+        map("n", "ff", builtin.find_files, opts) -- Lists files in your current working directory, respects .gitignore
+        map("n", "fx", builtin.treesitter, opts) -- Lists tree-sitter symbols
+		  map("n", "fe", builtin.buffers, opts)
         --map("n", "<leader>fs", builtin.spell_suggest, opts) -- Lists spell options
-		  map('n', '<leader>fs', function()
+		  map('n', 'fs', function()
 			  builtin.grep_string({ search = vim.fn.input("Grep > ")})
 		  end) 
+
+		  vim.api.nvim_set_keymap("n", "ft", ":TodoTelescope<CR>", {noremap=true})
+
     end
 }

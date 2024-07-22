@@ -44,7 +44,9 @@ local map = vim.keymap.set
 local opts = {noremap = true, silent = true}
 
 -- custom key binding 
-map("n", "<leader>fg", vim.cmd.Ex, opts)
+map("n", "fg", vim.cmd.Ex, opts)
+
+map("n", "A-l", vim.cmd.Esc, opts)
 
 map("v", "J", ":m '>+1<CR>gv=gv", opts)
 map("v", "K", ":m '<-2<CR>gv=gv", opts)

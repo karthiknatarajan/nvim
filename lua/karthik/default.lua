@@ -43,6 +43,7 @@ vim.api.nvim_create_autocmd("FileType", {
 local map = vim.keymap.set
 local opts = {noremap = true, silent = true}
 
+map("n", ";", ":", opts)
 -- custom key binding 
 map("n", "fg", vim.cmd.Ex, opts)
 
@@ -58,3 +59,14 @@ map("x", "<leader>p", [["_dP]], opts)
 -- next greatest remap ever : asbjornHaland
 map({"n", "v"}, "<leader>y", [["+y]], opts)
 map("n", "<leader>Y", [["+Y]], opts)
+
+
+-- window navigation
+map("n", "<A-h>", "<C-w>h", { desc = "switch window left" })
+map("n", "<A-l>", "<C-w>l", { desc = "switch window right" })
+map("n", "<A-j>", "<C-w>j", { desc = "switch window down" })
+map("n", "<A-k>", "<C-w>k", { desc = "switch window up" })
+
+-- buffer navigation
+map("n", "<A-d>", "<C-d>", opts)
+map("n", "<A-u>", "<C-u>", opts)

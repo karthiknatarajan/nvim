@@ -39,11 +39,34 @@ vim.api.nvim_create_autocmd("FileType", {
 	end
 })
 
+--[[ vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.templ",
+	callback = function(args)
+		vim.lsp.buf.format({
+        filter = function(client)
+            -- apply whatever logic you want (in this example, we'll only use null-ls)
+				print(client.name)
+				print(client.name == "templ")
+            return client.name == "templ"
+        end
+    })
+	end,
+}) ]]
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})
+
+vim.filetype.add({ extension = { templ = "templ" } })
 
 local map = vim.keymap.set
 local opts = {noremap = true, silent = true}
 
 map("n", ";", ":", opts)
+map("n", "<Tab>", ":w<CR>", opts)
 -- custom key binding 
 map("n", "fg", vim.cmd.Ex, opts)
 

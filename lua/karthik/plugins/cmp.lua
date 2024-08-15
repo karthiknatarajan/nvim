@@ -13,7 +13,8 @@ return {
 				require("luasnip.loaders.from_vscode").lazy_load()
 				-- https://github.com/rafamadriz/friendly-snippets/blob/main/snippets/go.json
 			end
-		}, {"saadparwaiz1/cmp_luasnip", enabled = true}
+		}, 
+		{"saadparwaiz1/cmp_luasnip", enabled = true},
 	},
 	config = function()
 		local luasnip = require("luasnip")
@@ -61,7 +62,10 @@ return {
 				end, {"i", "s"})
 			}),
 			sources = cmp.config.sources({
-				{name = "nvim_lsp"}, {name = "luasnip"}, {name = "buffer"}
+				{name = 'codeium'},
+				{name = "nvim_lsp"},
+				{name = "luasnip"},
+				{name = "buffer"},
 			}),
 			formatting = {
 				format = lspkind.cmp_format({
@@ -71,6 +75,7 @@ return {
 				})
 			}
 		})
+
 		local lspconfig = require("lspconfig")
 
 		-- All languages: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md

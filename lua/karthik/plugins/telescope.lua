@@ -18,6 +18,10 @@ return {
                 sorting_strategy = "ascending",
                 layout_strategy = "horizontal",
                 layout_config = {prompt_position = "top"},
+                file_ignore_patterns = { 
+                    "node_modules" ,
+                    "sqlite3" ,
+                  },
                 mappings = {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result

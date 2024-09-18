@@ -90,18 +90,18 @@ return {
 		lspconfig["templ"].setup {	
 		}
 
-		lspconfig["html"].setup {
-			filetypes = {"html", "templ"}
-		}
+		-- lspconfig["html"].setup {
+		-- 	filetypes = {"html", "templ"}
+		-- }
 
-		lspconfig["htmx"].setup {
-			filetypes = {"html"}
-		}
+		-- lspconfig["htmx"].setup {
+		-- 	filetypes = {"templ"}
+		-- }
 		lspconfig["tailwindcss"].setup {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-			init_options = { userLanguages = { templ = "html" } },
+			init_options = { userLanguages = { templ = "templ" } },
 		}  
 		-- Python: brew install pyright
 		lspconfig["pyright"].setup {}
@@ -112,6 +112,5 @@ return {
 		-- https://phpactor.readthedocs.io/en/master/usage/standalone.html#installation
 		lspconfig["phpactor"].setup {}
 
-		lspconfig["tsserver"].setup {}
 	end
 }

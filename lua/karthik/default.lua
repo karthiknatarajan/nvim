@@ -17,14 +17,14 @@ vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed"
 vim.opt.scrollbind = false
 vim.opt.wildmenu = true
-vim.opt.scrolloff = 15
+vim.opt.scrolloff = 20 
 
 vim.opt.tabstop = 3
 vim.opt.shiftwidth = 3
 
--- disable netw since for nvim-tree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- -- disable netw since for nvim-tree
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 -- filetype related 
 vim.api.nvim_create_autocmd("FileType", {

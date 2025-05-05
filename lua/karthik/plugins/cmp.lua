@@ -82,13 +82,12 @@ return {
 
 		-- Default lspconfig values for Go are set by `navigator`
 		-- Go: go install golang.org/x/tools/gopls@latest
-		--[[ 		lspconfig["gopls"].setup {
-			filetypes = {"go", "gomod", "gowork", "gotmpl", "templ" },
-		}
-		]]
+		--lspconfig["gopls"].setup {
+		--	filetypes = {"go", "gomod", "gowork", "gotmpl", "templ" },
+		--}
+	
 		-- templ:go install github.com/a-h/templ/cmd/templ@latest 
-		lspconfig["templ"].setup {	
-		}
+		lspconfig["templ"].setup {}
 
 		-- lspconfig["html"].setup {
 		-- 	filetypes = {"html", "templ"}

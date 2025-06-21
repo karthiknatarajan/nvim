@@ -1,23 +1,28 @@
 return {
     "ray-x/navigator.lua",
     dependencies = {
-        {"hrsh7th/nvim-cmp"}, {"nvim-treesitter/nvim-treesitter"},
-        {"ray-x/guihua.lua", run = "cd lua/fzy && make"}, {
+        {"hrsh7th/nvim-cmp"}, 
+        {"nvim-treesitter/nvim-treesitter"},
+        {"ray-x/guihua.lua", run = "cd lua/fzy && make"}, 
+        {
             "ray-x/go.nvim",
             event = {"CmdlineEnter"},
             ft = {"go", "gomod"},
             build = ':lua require("go.install").update_all_sync()'
-        }, {
+        }, 
+        {
             "ray-x/lsp_signature.nvim", -- Show function signature when you type
             event = "VeryLazy",
             config = function() require("lsp_signature").setup() end
         }
     },
     config = function()
-        require("go").setup()
+        require("go").setup{
+            lsp_inlay_hints = { enable = false },
+        }
         require("navigator").setup({
             lsp_signature_help = true, -- enable ray-x/lsp_signature
-            lsp = {format_on_save = true}
+            lsp = {format_on_save = true, inlay_hints = { enabled = false }}
         })
 
         vim.api.nvim_create_autocmd("FileType", {

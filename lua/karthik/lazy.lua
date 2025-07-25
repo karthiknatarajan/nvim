@@ -8,7 +8,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({{import = "karthik.plugins"}}, {
+require("lazy").setup({{import = "karthik.plugins"}, {import = "karthik.plugins.lsp"}}, {
     checker = {
         enabled = false -- disable check for plugin updates
     },

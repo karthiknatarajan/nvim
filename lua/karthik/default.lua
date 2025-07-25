@@ -43,19 +43,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end
 })
 
---[[ vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.templ",
-	callback = function(args)
-		vim.lsp.buf.format({
-        filter = function(client)
-            -- apply whatever logic you want (in this example, we'll only use null-ls)
-				print(client.name)
-				print(client.name == "templ")
-            return client.name == "templ"
-        end
-    })
-	end,
-}) ]]
 
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",

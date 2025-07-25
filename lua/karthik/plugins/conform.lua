@@ -1,17 +1,50 @@
 return {
-	'stevearc/conform.nvim',
+	"stevearc/conform.nvim",
+	-- "jose-elias-alvarez/null-ls.nvim",
+	-- "jayp0521/mason-null-ls.nvim",
+
+	lazy = true,
+	event = { "BufReadPre", "BufNewFile" }, -- to disable, comment this out
 	config = function()
-		require("conform").setup({
+		local conform = require("conform")
+
+		conform.setup({
 			formatters_by_ft = {
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				javascriptreact = { "prettier" },
+				typescriptreact = { "prettier" },
+				svelte = { "prettier" },
+				css = { "prettier" },
+				html = { "prettier" },
+				json = { "prettier" },
+				go = { "goimports", "gofmt" },
+				sql = { "sql-formatter" },
+				yaml = { "prettier" },
+				markdown = { "prettier" },
+				graphql = { "prettier" },
+				lua = { "stylua" },
 				templ = { "templ" },
 			},
 			format_on_save = {
-				-- These options will be passed to conform.format()
-				timeout_ms = 500,
-				lsp_format = "never",
-			  }
+				lsp_fallback = true,
+				async = false,
+				timeout_ms = 1000,
+			},
+			formatters = {
+				prettier = {
+					prepend_args = { "--config-precedence", "prefer-file" },
+					require_cwd_config = true,
+				},
+			},
 		})
 
-	end
-
+		vim.keymap.set({ "n", "v" }, "<leader>ff", function()
+			conform.format({
+				lsp_fallback = true,
+				async = false,
+				timeout_ms = 1000,
+			})
+		end, { desc = "Format file or range (in visual mode)" })
+	end,
 }

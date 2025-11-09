@@ -28,6 +28,7 @@ return {
 				"golines", -- go formatter
 				"templ",
                 "goimports",
+				"gopls",
 			},
 		})
 	end,

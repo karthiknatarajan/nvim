@@ -27,7 +27,7 @@ return {
 				"prettier", -- prettier formatter
 				"golines", -- go formatter
 				"templ",
-                "goimports",
+            	"goimports",
 				"gopls",
 			},
 		})

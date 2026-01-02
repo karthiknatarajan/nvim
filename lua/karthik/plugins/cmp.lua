@@ -89,13 +89,14 @@ return {
 		-- templ:go install github.com/a-h/templ/cmd/templ@latest 
 		lspconfig["templ"].setup {}
 
-		-- lspconfig["html"].setup {
-		-- 	filetypes = {"html", "templ"}
-		-- }
+		lspconfig["html"].setup {
+			filetypes = {"html", "templ"}
+		}
 
-		-- lspconfig["htmx"].setup {
-		-- 	filetypes = {"templ"}
-		-- }
+		lspconfig["htmx"].setup {
+			filetypes = {"templ"}
+		}
+		
 		lspconfig["tailwindcss"].setup {}
 
 		-- Python: brew install pyright

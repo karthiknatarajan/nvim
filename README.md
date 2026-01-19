@@ -1,4 +1,4 @@
-FZF issue
 
+For FZF issue
 
-cd ~/.local/share/nvim/lazy/telescope-fzf-native.nvim && make && cd -
+`cd ~/.local/share/nvim/lazy/telescope-fzf-native.nvim && make && cd -`

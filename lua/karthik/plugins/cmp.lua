@@ -76,37 +76,36 @@ return {
 			}
 		})
 
-		local lspconfig = require("lspconfig")
 
 		-- All languages: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
 		-- Default lspconfig values for Go are set by `navigator`
 		-- Go: go install golang.org/x/tools/gopls@latest
-		--lspconfig["gopls"].setup {
+		--vim.lsp.config("gopls", {
 		--	filetypes = {"go", "gomod", "gowork", "gotmpl", "templ" },
-		--}
+		--})
 	
 		-- templ:go install github.com/a-h/templ/cmd/templ@latest 
-		lspconfig["templ"].setup {}
+		vim.lsp.config("templ", {})
 
-		lspconfig["html"].setup {
+		vim.lsp.config("html", {
 			filetypes = {"html", "templ"}
-		}
+		})
 
-		lspconfig["htmx"].setup {
+		vim.lsp.config("htmx", {
 			filetypes = {"templ"}
-		}
+		})
 		
-		lspconfig["tailwindcss"].setup {}
+		vim.lsp.config("tailwindcss", {})
 
 		-- Python: brew install pyright
-		lspconfig["pyright"].setup {}
+		vim.lsp.config("pyright", {})
 
 		-- Ruby: gem install solargraph
-		lspconfig["solargraph"].setup {}
+		vim.lsp.config("solargraph", {})
 
 		-- https://phpactor.readthedocs.io/en/master/usage/standalone.html#installation
-		lspconfig["phpactor"].setup {}
+		vim.lsp.config("phpactor", {})
 
 	end
 }

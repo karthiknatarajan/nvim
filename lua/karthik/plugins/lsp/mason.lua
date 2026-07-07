@@ -27,8 +27,12 @@ return {
 				"prettier", -- prettier formatter
 				"golines", -- go formatter
 				"templ",
-            	"goimports",
+				"goimports",
 				"gopls",
+				"typescript-language-server",
+				"tailwindcss-language-server",
+				"lua-language-server",
+				"stylua",
 			},
 		})
 	end,

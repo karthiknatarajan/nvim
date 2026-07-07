@@ -1,29 +1,48 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
 	build = ":TSUpdate",
 	dependencies = {
-		{"nvim-treesitter/nvim-treesitter-textobjects"}, -- Syntax aware text-objects
+		{ "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
 		{
 			"nvim-treesitter/nvim-treesitter-context", -- Show code context
-			opts = {enable = true, mode = "topline", line_numbers = true}
-		}
+			opts = { enable = true, mode = "topline", line_numbers = true },
+		},
 	},
 	config = function()
-		local treesitter = require("nvim-treesitter.configs")
+		require("nvim-treesitter.install").prefer_git = true
+		local treesitter = require("nvim-treesitter.config")
 
 		vim.api.nvim_create_autocmd("FileType", {
-			pattern = {"markdown"},
+			pattern = { "markdown" },
 			callback = function(ev)
 				-- treesitter-context is buggy with Markdown files
 				require("treesitter-context").disable()
-			end
+			end,
 		})
 
 		treesitter.setup({
 			ensure_installed = {
-				"csv", "dockerfile", "gitignore", "go", "gomod", "gosum", "templ",
-				"gowork", "javascript", "json", "lua", "markdown", "proto",
-				"python", "rego", "ruby", "sql", "svelte", "yaml", "php"
+				"csv",
+				"dockerfile",
+				"gitignore",
+				"go",
+				"gomod",
+				"gosum",
+				"templ",
+				"gowork",
+				"javascript",
+				"json",
+				"lua",
+				"markdown",
+				"proto",
+				"python",
+				"rego",
+				"ruby",
+				"sql",
+				"svelte",
+				"yaml",
+				"php",
 			},
 			-- indent = {enable = true},
 			auto_install = true,
@@ -34,5 +53,12 @@ return {
 			},
 			-- textobjects = {select = {enable = true, lookahead = true}}
 		})
-	end
+
+		vim.api.nvim_create_autocmd({ "FileType" }, {
+			pattern = { "go", "gomod", "lua", "vim" }, -- Add any other languages here
+			callback = function()
+				vim.treesitter.start()
+			end,
+		})
+	end,
 }

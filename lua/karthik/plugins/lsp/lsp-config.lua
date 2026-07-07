@@ -18,7 +18,7 @@ return {
 
 		local keymap = vim.keymap -- for conciseness
 
-        vim.filetype.add({extension = { templ = "templ" }})
+		vim.filetype.add({ extension = { templ = "templ" } })
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -75,16 +75,16 @@ return {
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
 		vim.diagnostic.config({
-            signs = {
-              -- You can specify the signs for each diagnostic severity
-              -- or use the defaults provided by the LSP
-              -- Example:
-              Error = ' ',
-              Warn = ' ',
-              Info = ' ',
-              Hint = ' ',
-            },
-          })
+			signs = {
+				-- You can specify the signs for each diagnostic severity
+				-- or use the defaults provided by the LSP
+				-- Example:
+				Error = " ",
+				Warn = " ",
+				Info = " ",
+				Hint = " ",
+			},
+		})
 
 		mason_lspconfig.setup({
 			-- default handler for installed servers
@@ -100,9 +100,16 @@ return {
 					filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
 				})
 			end,
-			["tsserver"] = function()
-				lspconfig["tsserver"].setup({
+			["ts_ls"] = function()
+				lspconfig["ts_ls"].setup({
 					capabilities = capabilities,
+					filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				})
+			end,
+			["tailwindcss"] = function()
+				lspconfig["tailwindcss"].setup({
+					capabilities = capabilities,
+					filetypes = { "html", "css", "javascriptreact", "typescriptreact", "templ" },
 				})
 			end,
 			["templ"] = function()

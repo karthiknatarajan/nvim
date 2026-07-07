@@ -17,7 +17,7 @@ vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed"
 vim.opt.scrollbind = false
 vim.opt.wildmenu = true
-vim.opt.scrolloff = 20 
+vim.opt.scrolloff = 20
 
 vim.opt.tabstop = 3
 vim.opt.shiftwidth = 3
@@ -26,54 +26,55 @@ vim.opt.shiftwidth = 3
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
--- filetype related 
+-- filetype related
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"gitcommit"},
+	pattern = { "gitcommit" },
 	callback = function(ev)
-		vim.api.nvim_set_option_value("textwidth", 72, {scope = "local"})
-	end
+		vim.api.nvim_set_option_value("textwidth", 72, { scope = "local" })
+	end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = {"markdown"},
+	pattern = { "markdown" },
 	callback = function(ev)
-		vim.api.nvim_set_option_value("textwidth", 0, {scope = "local"})
-		vim.api.nvim_set_option_value("wrapmargin", 0, {scope = "local"})
-		vim.api.nvim_set_option_value("linebreak", true, {scope = "local"})
-	end
+		vim.api.nvim_set_option_value("textwidth", 0, { scope = "local" })
+		vim.api.nvim_set_option_value("wrapmargin", 0, { scope = "local" })
+		vim.api.nvim_set_option_value("linebreak", true, { scope = "local" })
+	end,
 })
-
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format({ bufnr = args.buf })
-  end,
+	pattern = "*",
+	callback = function(args)
+		require("conform").format({ bufnr = args.buf })
+	end,
 })
 
 vim.filetype.add({ extension = { templ = "templ" } })
 
 local map = vim.keymap.set
-local opts = {noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 
 map("n", ";", ":", opts)
 map("n", "<Tab>", ":w<CR>", opts)
--- custom key binding 
+-- custom key binding
 map("n", "fg", vim.cmd.Ex, opts)
 
-map({"n","i"}, "A-l", vim.cmd.Esc, opts)
+map({ "n", "i" }, "A-l", vim.cmd.Esc, opts)
 
 map("v", "J", ":m '>+1<CR>gv=gv", opts)
 map("v", "K", ":m '<-2<CR>gv=gv", opts)
 
+-- navigations
+map("n", "<A-o>", "<C-o>", { desc = "Go to previous location" })
+map("n", "<A-i>", "<C-i>", { desc = "Go to next location" })
 
 -- greatest remap ever
 map("x", "<leader>p", [["_dP]], opts)
 
 -- next greatest remap ever : asbjornHaland
-map({"n", "v"}, "<leader>y", [["+y]], opts)
+map({ "n", "v" }, "<leader>y", [["+y]], opts)
 map("n", "<leader>Y", [["+Y]], opts)
-
 
 -- window navigation
 map("n", "<A-h>", "<C-w>h", { desc = "switch window left" })

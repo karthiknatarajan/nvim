@@ -69,6 +69,9 @@ map("v", "K", ":m '<-2<CR>gv=gv", opts)
 map("n", "<A-o>", "<C-o>", { desc = "Go to previous location" })
 map("n", "<A-i>", "<C-i>", { desc = "Go to next location" })
 
+-- undo redo
+map("n", "<A-r>", "<C-r>", { desc = "Redo" })
+
 -- greatest remap ever
 map("x", "<leader>p", [["_dP]], opts)
 

@@ -27,9 +27,8 @@ return {
 				templ = { "templ" },
 			},
 			format_on_save = {
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 1000,
+				lsp_fallback = "fallback",
+				timeout_ms = 5000,
 			},
 			formatters = {
 				prettier = {

@@ -60,14 +60,14 @@ return {
 		map("n", "fx", builtin.treesitter, opts) -- Lists tree-sitter symbols
 		map("n", "fe", builtin.buffers, opts)
 		--map("n", "<leader>fs", builtin.spell_suggest, opts) -- Lists spell options
-		map("n", "fs", function()
-			vim.ui.input({ prompt = "Grep > " }, function(input)
-				if input == nil or input == "" then
-					return
-				end
-				builtin.grep_string({ search = input })
-			end)
-		end, opts)
+		-- map("n", "fs", function()
+		-- 	vim.ui.input({ prompt = "Grep > " }, function(input)
+		-- 		if input == nil or input == "" then
+		-- 			return
+		-- 		end
+		-- 		builtin.grep_string({ search = input })
+		-- 	end)
+		-- end, opts)
 
 		vim.api.nvim_set_keymap("n", "ft", ":TodoTelescope<CR>", { noremap = true })
 	end,

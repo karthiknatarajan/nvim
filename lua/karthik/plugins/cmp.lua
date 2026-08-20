@@ -8,13 +8,13 @@ return {
 			"L3MON4D3/LuaSnip",
 			version = "v2.*",
 			build = "make install_jsregexp",
-			dependencies = {"rafamadriz/friendly-snippets"}, -- Snippets
+			dependencies = { "rafamadriz/friendly-snippets" }, -- Snippets
 			config = function()
 				require("luasnip.loaders.from_vscode").lazy_load()
 				-- https://github.com/rafamadriz/friendly-snippets/blob/main/snippets/go.json
-			end
-		}, 
-		{"saadparwaiz1/cmp_luasnip", enabled = true},
+			end,
+		},
+		{ "saadparwaiz1/cmp_luasnip", enabled = true },
 	},
 	config = function()
 		local luasnip = require("luasnip")
@@ -24,12 +24,12 @@ return {
 		luasnip.config.setup({
 			ext_opts = {
 				[types.choiceNode] = {
-					active = {virt_text = {{"⇥", "GruvboxRed"}}}
+					active = { virt_text = { { "⇥", "GruvboxRed" } } },
 				},
 				[types.insertNode] = {
-					active = {virt_text = {{"⇥", "GruvboxBlue"}}}
-				}
-			}
+					active = { virt_text = { { "⇥", "GruvboxBlue" } } },
+				},
+			},
 		})
 
 		local cmp = require("cmp")
@@ -39,18 +39,18 @@ return {
 			snippet = {
 				expand = function(args)
 					luasnip.lsp_expand(args.body)
-				end
+				end,
 			},
 			window = {
 				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered()
+				documentation = cmp.config.window.bordered(),
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-Space>"] = cmp.mapping.complete(),
+				["<A-Space>"] = cmp.mapping.complete(),
 				["<C-e>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({select = true}),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 				["<Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_next_item()
@@ -59,23 +59,22 @@ return {
 					else
 						fallback()
 					end
-				end, {"i", "s"})
+				end, { "i", "s" }),
 			}),
 			sources = cmp.config.sources({
-				{name = 'codeium'},
-				{name = "nvim_lsp"},
-				{name = "luasnip"},
-				{name = "buffer"},
+				{ name = "codeium" },
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+				{ name = "buffer" },
 			}),
 			formatting = {
 				format = lspkind.cmp_format({
 					mode = "symbol_text",
 					maxwidth = 70,
-					show_labelDetails = true
-				})
-			}
+					show_labelDetails = true,
+				}),
+			},
 		})
-
 
 		-- All languages: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
@@ -84,18 +83,18 @@ return {
 		--vim.lsp.config("gopls", {
 		--	filetypes = {"go", "gomod", "gowork", "gotmpl", "templ" },
 		--})
-	
-		-- templ:go install github.com/a-h/templ/cmd/templ@latest 
+
+		-- templ:go install github.com/a-h/templ/cmd/templ@latest
 		vim.lsp.config("templ", {})
 
 		vim.lsp.config("html", {
-			filetypes = {"html", "templ"}
+			filetypes = { "html", "templ" },
 		})
 
 		vim.lsp.config("htmx", {
-			filetypes = {"templ"}
+			filetypes = { "templ" },
 		})
-		
+
 		vim.lsp.config("tailwindcss", {})
 
 		-- Python: brew install pyright
@@ -106,6 +105,5 @@ return {
 
 		-- https://phpactor.readthedocs.io/en/master/usage/standalone.html#installation
 		vim.lsp.config("phpactor", {})
-
-	end
+	end,
 }

@@ -28,8 +28,31 @@ return {
 				local opts = { buffer = ev.buf, silent = true }
 
 				-- set keybinds
-				opts.desc = "Show LSP references"
-				keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+				opts.desc = "Show LSP references (No Tests)"
+				keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", opts)
+				keymap.set("n", "grt", function()
+					local builtin = require("telescope.builtin")
+					local make_entry = require("telescope.make_entry")
+
+					-- Define patterns for test files to exclude
+					local ignore_patterns = { "%.spec%.", "%.test%.", "_spec%.", "_test%." }
+
+					builtin.lsp_references({
+						entry_maker = function(entry)
+							local default_maker = make_entry.gen_from_quickfix({})
+							local entry_table = default_maker(entry)
+
+							if entry_table and entry_table.filename then
+								for _, pattern in ipairs(ignore_patterns) do
+									if string.find(entry_table.filename, pattern) then
+										return nil -- Drop test file entries
+									end
+								end
+							end
+							return entry_table
+						end,
+					})
+				end, opts)
 
 				opts.desc = "Go to declaration"
 				keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration

@@ -26,6 +26,7 @@ return {
 			ensure_installed = {
 				"prettier", -- prettier formatter
 				"golines", -- go formatter
+				"gci",
 				"templ",
 				"goimports",
 				"gopls",

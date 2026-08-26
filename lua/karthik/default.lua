@@ -50,6 +50,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		-- kill the underline but keep whatever color it had
+		vim.api.nvim_set_hl(0, "LanguageServer_Variables_Variable", { underline = false })
+		-- belt-and-suspenders: some themes set gui attrs on the @lsp group itself too
+		vim.api.nvim_set_hl(0, "@lsp.type.variable", { underline = false })
+	end,
+})
+
 vim.filetype.add({ extension = { templ = "templ" } })
 
 local map = vim.keymap.set

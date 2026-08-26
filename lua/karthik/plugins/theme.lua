@@ -1,10 +1,3 @@
--- return {
--- 	"folke/tokyonight.nvim",
--- 	config = function()
--- 		vim.cmd.colorscheme("tokyonight-night")
--- 	end,
--- }
---
 return {
 	"nickkadutskyi/jb.nvim",
 	lazy = false,

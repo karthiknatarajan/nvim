@@ -18,7 +18,7 @@ return {
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
-				go = { "goimports", "gofmt" },
+				go = { "goimports", "gci", "gofmt" },
 				sql = { "sql-formatter" },
 				yaml = { "prettier" },
 				markdown = { "prettier" },
@@ -34,6 +34,32 @@ return {
 				prettier = {
 					prepend_args = { "--config-precedence", "prefer-file" },
 					require_cwd_config = true,
+				},
+				goimports = {
+					prepend_args = { "-local", "github.com/Kong" },
+				},
+				gci = {
+					args = {
+						"write",
+						"--skip-generated",
+						"-s",
+						"standard", -- stdlib block
+						"-s",
+						"default", -- everything else
+						"-s",
+						"prefix(github.com/Kong)", -- your local group
+						"$FILENAME",
+					},
+					stdin = false,
+					-- prepend_args = {
+					-- 	"-s",
+					-- 	"standard",
+					-- 	"-s",
+					-- 	"default",
+					-- 	"-s",
+					-- 	"prefix(github.com/Kong)",
+					-- 	-- swap the line above for "-s", "localmodule" to mimic "Current project packages" instead
+					-- },
 				},
 			},
 		})

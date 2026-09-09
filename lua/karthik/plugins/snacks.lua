@@ -21,6 +21,35 @@ return {
 					dev = vim.fn.expand("~/go/src/*/*", false, true),
 					recent = true,
 					patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+					-- Switch projects the same way I do it by hand: save the outgoing
+					-- project's session, close everything down (buffers, tabs, LSP
+					-- clients) so barbar & friends start clean, then cd into the new
+					-- project and restore its session if one was saved before.
+					confirm = function(picker, item)
+						picker:close()
+						if not item then
+							return
+						end
+						local dir = item.file
+
+						-- persist the project we're leaving
+						require("persistence").save()
+
+						-- stop LSP clients tied to the old project
+						for _, client in ipairs(vim.lsp.get_clients()) do
+							client:stop()
+						end
+
+						-- collapse back to a single empty window/tab (like a fresh nvim)
+						vim.cmd("silent! tabonly")
+						vim.cmd("silent! only")
+						vim.cmd("silent! %bwipeout!")
+
+						vim.fn.chdir(dir)
+
+						-- restore the new project's session, if it has one
+						require("persistence").load()
+					end,
 				}
 			},
    	},

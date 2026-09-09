@@ -22,8 +22,8 @@ return {
 					recent = true,
 					patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
 				}
-			}
-		},
+			},
+   	},
       quickfile = { enabled = true },
       scope = { enabled = true },
       scroll = { enabled = true },

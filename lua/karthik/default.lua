@@ -101,3 +101,5 @@ map("n", "<A-k>", "<C-w>k", { desc = "switch window up" })
 -- buffer navigation
 map("n", "<A-d>", "<C-d>", opts)
 map("n", "<A-u>", "<C-u>", opts)
+
+vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,globals,terminal"

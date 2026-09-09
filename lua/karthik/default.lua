@@ -59,6 +59,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 	end,
 })
 
+-- Dynamically update terminal tab/window title to current working directory
+vim.opt.title = true
+vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
+
 vim.filetype.add({ extension = { templ = "templ" } })
 
 local map = vim.keymap.set

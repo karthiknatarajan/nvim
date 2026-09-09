@@ -29,7 +29,7 @@ return {
 
 				-- set keybinds
 				opts.desc = "Show LSP references (No Tests)"
-				keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", opts)
+				-- keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", opts)
 				keymap.set("n", "grt", function()
 					local builtin = require("telescope.builtin")
 					local make_entry = require("telescope.make_entry")

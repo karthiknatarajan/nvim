@@ -20,34 +20,60 @@ return {
 					dev = vim.fn.expand("~/go/src/*/*", false, true),
 					recent = true,
 					patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
-					-- Switch projects the same way I do it by hand: save the outgoing
-					-- project's session, close everything down (buffers, tabs, LSP
-					-- clients) so barbar & friends start clean, then cd into the new
-					-- project and restore its session if one was saved before.
 					confirm = function(picker, item)
-						picker:close()
-						if not item then
-							return
-						end
-						local dir = item.file
+					  if not item then
+						 picker:close()
+						 return
+					  end
 
-						-- persist the project we're leaving
-						require("persistence").save()
+					  -- Don't switch projects if anything in Neovim has unsaved changes.
+					  local modified = {}
 
-						-- stop LSP clients tied to the old project
-						for _, client in ipairs(vim.lsp.get_clients()) do
-							client:stop()
-						end
+					  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+						 if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].modified then
+							local name = vim.api.nvim_buf_get_name(buf)
 
-						-- collapse back to a single empty window/tab (like a fresh nvim)
-						vim.cmd("silent! tabonly")
-						vim.cmd("silent! only")
-						vim.cmd("silent! %bwipeout!")
+							if name == "" then
+							  name = "[No Name]"
+							else
+							  name = vim.fn.fnamemodify(name, ":~:.")
+							end
 
-						vim.fn.chdir(dir)
+							table.insert(modified, name)
+						 end
+					  end
 
-						-- restore the new project's session, if it has one
-						require("persistence").load()
+					  if #modified > 0 then
+						 vim.notify(
+							"Project switch cancelled: unsaved changes in:\n\n"
+							  .. table.concat(modified, "\n"),
+							vim.log.levels.WARN,
+							{ title = "Unsaved Changes" }
+						 )
+						 return
+					  end
+
+					  picker:close()
+
+					  local dir = item.file
+
+					  -- persist the project we're leaving
+					  require("persistence").save()
+
+					  -- stop LSP clients tied to the old project
+					  for _, client in ipairs(vim.lsp.get_clients()) do
+						 client:stop()
+					  end
+
+					  -- collapse back to a single empty window/tab
+					  vim.cmd("silent! tabonly")
+					  vim.cmd("silent! only")
+					  vim.cmd("silent! %bwipeout!")
+
+					  vim.fn.chdir(dir)
+
+					  -- restore the new project's session, if it has one
+					  require("persistence").load()
 					end,
 				}
 			},

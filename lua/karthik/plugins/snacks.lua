@@ -13,7 +13,6 @@ return {
         enabled = false,
         timeout = 3000,
       },
-
       picker = { 
 			enabled = true,
 			sources = {
@@ -58,10 +57,22 @@ return {
       scroll = { enabled = true },
       statuscolumn = { enabled = false },
       words = { enabled = true },
+		lazygit = {
+			win = {
+				style = "lazygit",
+				width = 0,
+				height = 0,
+			},
+		},
       styles = {
         notification = {
           -- wo = { wrap = true } -- Wrap notifications
-        }
+        },
+			lazygit = {
+				wo = {
+					winhighlight = "Normal:SnacksLazygitNormal,NormalFloat:SnacksLazygitNormal",
+				},
+			},
       }
     },
     keys = {
@@ -157,6 +168,7 @@ return {
       }
     },
     init = function()
+		vim.env.LG_CONFIG_FILE = vim.fn.expand("~/.config/lazygit/config.yml")
       vim.api.nvim_create_autocmd("User", {
         pattern = "VeryLazy",
         callback = function()

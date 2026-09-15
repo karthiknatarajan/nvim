@@ -19,7 +19,7 @@ return {
 				html = { "prettier" },
 				json = { "prettier" },
 				go = { "goimports", "gci", "gofmt" },
-				sql = { "sql-formatter" },
+				sql = { "pg_format" },
 				yaml = { "prettier" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
@@ -37,6 +37,9 @@ return {
 				},
 				goimports = {
 					prepend_args = { "-local", "github.com/Kong" },
+				},
+				pg_format = {
+					prepend_args = { "--vertical-align", "--type-case", "2" },
 				},
 				gci = {
 					args = {

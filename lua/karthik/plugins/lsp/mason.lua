@@ -34,6 +34,7 @@ return {
 				"tailwindcss-language-server",
 				"lua-language-server",
 				"stylua",
+				"sql-formatter",
 			},
 		})
 	end,

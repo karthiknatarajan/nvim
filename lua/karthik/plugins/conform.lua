@@ -8,6 +8,25 @@ return {
 	config = function()
 		local conform = require("conform")
 
+		-- Reads the module path from the nearest go.mod so goimports groups
+		-- local-package imports into their own block, matching each repo's
+		-- golangci-lint `goimports.local-prefixes` setting (repos differ, e.g.
+		-- github.com/Kong/* vs github.com/kong-konnect/*).
+		local function goimports_local_prefix(_, ctx)
+			local gomod = vim.fs.find("go.mod", { path = ctx.dirname, upward = true })[1]
+			if not gomod then
+				return {}
+			end
+			local f = io.open(gomod, "r")
+			if not f then
+				return {}
+			end
+			local first_line = f:read("*l")
+			f:close()
+			local mod = first_line and first_line:match("^module%s+(%S+)")
+			return mod and { "-local", mod } or {}
+		end
+
 		conform.setup({
 			formatters_by_ft = {
 				javascript = { "prettier" },
@@ -18,7 +37,7 @@ return {
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
-				go = { "goimports", "gci", "gofmt" },
+				go = { "goimports", "gofmt" },
 				sql = { "pg_format" },
 				yaml = { "prettier" },
 				markdown = { "prettier" },
@@ -36,33 +55,10 @@ return {
 					require_cwd_config = true,
 				},
 				goimports = {
-					prepend_args = { "-local", "github.com/Kong" },
+					prepend_args = goimports_local_prefix,
 				},
 				pg_format = {
 					prepend_args = { "--vertical-align", "--type-case", "2" },
-				},
-				gci = {
-					args = {
-						"write",
-						"--skip-generated",
-						"-s",
-						"standard", -- stdlib block
-						"-s",
-						"default", -- everything else
-						"-s",
-						"prefix(github.com/Kong)", -- your local group
-						"$FILENAME",
-					},
-					stdin = false,
-					-- prepend_args = {
-					-- 	"-s",
-					-- 	"standard",
-					-- 	"-s",
-					-- 	"default",
-					-- 	"-s",
-					-- 	"prefix(github.com/Kong)",
-					-- 	-- swap the line above for "-s", "localmodule" to mimic "Current project packages" instead
-					-- },
 				},
 			},
 		})
